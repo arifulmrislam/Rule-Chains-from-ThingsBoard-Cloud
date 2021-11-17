@@ -1,0 +1,271 @@
+{
+  "ruleChain": {
+    "additionalInfo": {
+      "description": ""
+    },
+    "name": "Calculate Rest Of Energy",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": false,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": 4,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 548,
+          "layoutY": 398
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "ROP",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": true,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "Rest_of_power"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 813,
+          "layoutY": 397
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "Rest_of_power",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "Rest_of_power",
+          "outputValueKey": "Actual_rest_of_power",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 314,
+          "layoutY": 427
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Rest_of_power",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": " var newMsg = {};\r\n        \r\n        newMsg.Rest_of_power = parseFloat(Math.abs(msg.EM1_Power - (msg.EM2_Power + msg.EM3_Power + msg.EM4_Power + msg.EM5_Power)).toFixed(2));\r\n        \r\n        return {\r\n        \tmsg: newMsg,\r\n        \tmetadata: newMsg,\r\n        \tmsgType: msgType\r\n        };"
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 57,
+          "layoutY": 431
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch previous value",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": true,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "EM1_Power",
+            "EM2_Power",
+            "EM3_Power",
+            "EM4_Power",
+            "EM5_Power"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 34,
+          "layoutY": 245
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbMsgTypeSwitchNode",
+        "name": "message type switch",
+        "debugMode": false,
+        "configuration": {
+          "version": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 570,
+          "layoutY": 253
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "Delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "Delta_2_devices",
+          "outputValueKey": "others",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 305,
+          "layoutY": 246
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "OA",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": true,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "Delta_2_devices"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 876,
+          "layoutY": 273
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "ATS",
+        "debugMode": false,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 308,
+          "layoutY": 149
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": true,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "EM1_Energy",
+            "EM2_Energy",
+            "EM3_Energy",
+            "EM4_Energy",
+            "EM5_Energy"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 857,
+          "layoutY": 153
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "TS",
+        "debugMode": false,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 569,
+          "layoutY": 150
+        },
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "Calculate Rest of Energy",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": " var newMsg = {};\r\n        \r\n        newMsg.Delta_2_devices = parseFloat(Math.abs(msg.EM1_Energy - (msg.EM2_Energy + msg.EM3_Energy + msg.EM4_Energy + msg.EM5_Energy)).toFixed(2));\r\n        \r\n        return {\r\n        \tmsg: newMsg,\r\n        \tmetadata: newMsg,\r\n        \tmsgType: msgType\r\n        };"
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 1,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 1,
+        "toIndex": 7,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 9,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 3,
+        "toIndex": 2,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 8,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 3,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 5,
+        "toIndex": 7,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 5,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 8,
+        "toIndex": 10,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 6,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 0,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 10,
+        "toIndex": 9,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "ruleChain": {
+    "additionalInfo": {
+      "description": ""
+    },
+    "name": "Create Alarm & notification",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": false,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": 6,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 483,
+          "layoutY": 162
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Temperature Alarm",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "return msg.\tIndoor_L_Temperature_1_TV > 20;"
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 743,
+          "layoutY": 99
+        },
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "Temp Alarm",
+        "debugMode": false,
+        "configuration": {
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n}\nreturn details;",
+          "useMessageAlarmData": false,
+          "alarmType": "General Alarm",
+          "severity": "CRITICAL",
+          "propagate": true,
+          "relationTypes": []
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 750,
+          "layoutY": 384
+        },
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "Temp Alarm2",
+        "debugMode": false,
+        "configuration": {
+          "alarmType": "General Alarm",
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n}\nreturn details;"
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 756,
+          "layoutY": 214
+        },
+        "type": "org.thingsboard.rule.engine.action.TbClearAlarmNode",
+        "name": "Temp Alarm",
+        "debugMode": false,
+        "configuration": {
+          "alarmType": "General Alarm",
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n}\nreturn details;"
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 480,
+          "layoutY": 350
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsFilterNode",
+        "name": "Temp Alarm2",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "return msg.Indoor_L_Temperature_1_TV > 20;"
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 752,
+          "layoutY": 287
+        },
+        "type": "org.thingsboard.rule.engine.action.TbCreateAlarmNode",
+        "name": "Temp Alarm2",
+        "debugMode": false,
+        "configuration": {
+          "alarmDetailsBuildJs": "var details = {};\nif (metadata.prevAlarmDetails) {\n    details = JSON.parse(metadata.prevAlarmDetails);\n}\nreturn details;",
+          "useMessageAlarmData": false,
+          "alarmType": "General Alarm",
+          "severity": "CRITICAL",
+          "propagate": true,
+          "relationTypes": []
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 228,
+          "layoutY": 242
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbJsSwitchNode",
+        "name": "by type",
+        "debugMode": false,
+        "configuration": {
+          "jsScript": "function nextRelation(metadata, msg){\n        \tif (metadata.deviceName === 'Indoor-L-Temperature-1-TV'){\n        \t\treturn ['route-1'];\n        \t}else if (metadata.deviceName === 'Indoor-K-Temperature-1-TV'){\n        \t\treturn ['route-2'];\n        \t}\n        }\n        \n        return nextRelation(metadata, msg);"
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 1,
+        "type": "True"
+      },
+      {
+        "fromIndex": 0,
+        "toIndex": 3,
+        "type": "False"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 5,
+        "type": "True"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 2,
+        "type": "False"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 0,
+        "type": "route-1"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 4,
+        "type": "route-2"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}

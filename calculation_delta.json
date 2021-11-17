@@ -1,0 +1,624 @@
+{
+  "ruleChain": {
+    "additionalInfo": {
+      "description": ""
+    },
+    "name": "Calculation_Delta",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": false,
+    "configuration": null
+  },
+  "metadata": {
+    "firstNodeIndex": 6,
+    "nodes": [
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 566,
+          "layoutY": 344
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "power_delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "EM1_Power",
+          "outputValueKey": "EM1_Power_Delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": true
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 287,
+          "layoutY": 132
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch Previous Telemetry",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": false,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "EM3_Energy"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 552,
+          "layoutY": 138
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "Energy_Delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "EM3_Energy",
+          "outputValueKey": "EM3_Energy_delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 845,
+          "layoutY": 420
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "Water-Meter-BUH",
+        "debugMode": false,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 286,
+          "layoutY": 81
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch Previous Telemetry",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": false,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "EM2_Energy"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 546,
+          "layoutY": 86
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "Energy_Delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "EM2_Energy",
+          "outputValueKey": "EM2_Energy_delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 21,
+          "layoutY": 380
+        },
+        "type": "org.thingsboard.rule.engine.filter.TbMsgTypeSwitchNode",
+        "name": "Message Type Switch",
+        "debugMode": false,
+        "configuration": {
+          "version": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 284,
+          "layoutY": 31
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch Previous Telemetry",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": false,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "EM1_Energy"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 854,
+          "layoutY": 280
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "saveTS",
+        "debugMode": false,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 546,
+          "layoutY": 37
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "Energy_Delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "EM1_Energy",
+          "outputValueKey": "EM1_Energy_delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 291,
+          "layoutY": 236
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch Previous Telemetry",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": false,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "EM5_Energy"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 552,
+          "layoutY": 239
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "Energy_Delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "EM5_Energy",
+          "outputValueKey": "EM5_Energy_delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 288,
+          "layoutY": 185
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch Previous Telemetry",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": false,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "EM4_Energy"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 553,
+          "layoutY": 188
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "Energy_Delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "EM4_Energy",
+          "outputValueKey": "EM4_Energy_delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 840,
+          "layoutY": 563
+        },
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "Gas-Meter-BUH",
+        "debugMode": false,
+        "configuration": {
+          "defaultTTL": 0
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 268,
+          "layoutY": 673
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch previous value",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": false,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "Gas_Meter_BUH"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 583,
+          "layoutY": 682
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "Gas-Meter-BUH",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "Gas_Meter_BUH",
+          "outputValueKey": "Gas-Meter-BUH_Delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 274,
+          "layoutY": 589
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch previous value",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": false,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "Water_Meter_BUH"
+          ],
+          "getLatestValueWithTs": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 571,
+          "layoutY": 623
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "Water-Meter-BUH",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "Water_Meter_BUH",
+          "outputValueKey": "Water-Meter-BUH_Delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 565,
+          "layoutY": 398
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "power_delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "EM2_Power",
+          "outputValueKey": "EM2_Power_Delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 558,
+          "layoutY": 546
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "power_delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "EM5_Power",
+          "outputValueKey": "EM5_Power_Delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 561,
+          "layoutY": 496
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "power_delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "EM4_Power",
+          "outputValueKey": "EM4_Power_Delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 565,
+          "layoutY": 446
+        },
+        "type": "org.thingsboard.rule.engine.metadata.CalculateDeltaNode",
+        "name": "power_delta",
+        "debugMode": false,
+        "configuration": {
+          "inputValueKey": "EM3_Power",
+          "outputValueKey": "EM3_Power_Delta",
+          "useCache": true,
+          "addPeriodBetweenMsgs": true,
+          "periodValueKey": "periodInMs",
+          "round": null,
+          "tellFailureIfDeltaIsNegative": false
+        }
+      },
+      {
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 297,
+          "layoutY": 436
+        },
+        "type": "org.thingsboard.rule.engine.metadata.TbGetAttributesNode",
+        "name": "Fetch previous value",
+        "debugMode": false,
+        "configuration": {
+          "tellFailureIfAbsent": false,
+          "clientAttributeNames": [],
+          "sharedAttributeNames": [],
+          "serverAttributeNames": [],
+          "latestTsKeyNames": [
+            "EM1_Power",
+            "EM2_Power",
+            "EM3_Power",
+            "EM4_Power",
+            "EM5_Power"
+          ],
+          "getLatestValueWithTs": false
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 0,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 1,
+        "toIndex": 2,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 4,
+        "toIndex": 5,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 5,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 7,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 4,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 1,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 12,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 10,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 23,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 17,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 15,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 7,
+        "toIndex": 9,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 10,
+        "toIndex": 11,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 11,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 12,
+        "toIndex": 13,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 13,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 15,
+        "toIndex": 16,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 16,
+        "toIndex": 14,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 17,
+        "toIndex": 18,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 18,
+        "toIndex": 3,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 19,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 20,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 21,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 22,
+        "toIndex": 8,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 23,
+        "toIndex": 0,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 23,
+        "toIndex": 19,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 23,
+        "toIndex": 22,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 23,
+        "toIndex": 21,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 23,
+        "toIndex": 20,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}
